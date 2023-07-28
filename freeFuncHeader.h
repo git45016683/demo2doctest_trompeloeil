@@ -7,6 +7,8 @@
 
 
 	int iDownLoad();
+	bool bOutputValueWithPointer(int* p_iValue);
+	void vOutputValueWithPointer(int* p_iValue, long* p_lValue);
 
 
 
