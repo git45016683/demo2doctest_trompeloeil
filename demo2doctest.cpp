@@ -12,6 +12,7 @@
 #include "doctest/trompeloeil.hpp"
 
 
+#define TRY_TROMPELOEIL 1
 
 
 int fact(int n) {
@@ -25,18 +26,20 @@ TEST_CASE("demo2doctest") {
 }
 
 
+
+#if TRY_TROMPELOEIL
+
+
 class freeFuncMock {
 public:
 	MAKE_MOCK0(iDownLoad, int());
 };
-
 
 int funcCallAPIneedmock() {
 	int l_iRet = 0;
 	l_iRet = iDownLoad();
 	return l_iRet;
 }
-
 
 TEST_CASE("demo2doctestNOTmock") {
 	CHECK(funcCallAPIneedmock() == -1);
@@ -59,6 +62,8 @@ extern "C" {
 //int iDownLoad(){
 //	return -1;
 //}
+
+#endif // TRY_TROMPELOEIL
 
 //int main()
 //{
