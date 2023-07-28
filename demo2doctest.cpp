@@ -9,7 +9,7 @@
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
-#include "doctest/trompeloeil.hpp"
+#include "trompeloeil.hpp"
 
 
 #define TRY_TROMPELOEIL 1
@@ -34,6 +34,7 @@ class freeFuncMock {
 public:
 	MAKE_MOCK0(iDownLoad, int());
 };
+freeFuncMock freeMock;
 
 int funcCallAPIneedmock() {
 	int l_iRet = 0;
@@ -42,21 +43,20 @@ int funcCallAPIneedmock() {
 }
 
 TEST_CASE("demo2doctestNOTmock") {
+	REQUIRE_CALL(freeMock, iDownLoad()).RETURN(-1);
 	CHECK(funcCallAPIneedmock() == -1);
 }
 
-extern freeFuncMock freeMock;
-
 TEST_CASE("demo2doctestBYmock") {
-
+	REQUIRE_CALL(freeMock, iDownLoad()).RETURN(6);
 	CHECK(funcCallAPIneedmock() == 6);
 }
 
-extern "C" {
+//extern "C" {
 	int iDownLoad(){
 		return freeMock.iDownLoad();
 	}
-}
+//}
 
 //try mock iDownLoad with trompeloeil
 //int iDownLoad(){
