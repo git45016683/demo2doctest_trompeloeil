@@ -2,6 +2,12 @@
 
 void memberFuncHeader::vOutputValueByPointer(char* p_cStr)
 {
+	p_cStr[0] = 'o';
+	p_cStr[1] = 'r';
+	p_cStr[2] = 'i';
+	p_cStr[3] = 'g';
+	p_cStr[4] = 'i';
+	p_cStr[5] = 'n';
 }
 
 bool memberFuncHeader::bOutputRet(int p_iValue, int p_iLen)

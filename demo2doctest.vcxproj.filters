@@ -26,9 +26,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="freeFuncHeader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="memberFuncHeader.h">
       <Filter>头文件</Filter>
     </ClInclude>

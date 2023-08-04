@@ -1,9 +1,9 @@
 #include "callMemberFunc.h"
 #include "memberFuncHeader.h"
 
-callMemberFunc::callMemberFunc(memberFuncHeader* p_pObj):m_pObj(nullptr)
+callMemberFunc::callMemberFunc()
 {
-	m_pObj = p_pObj;
+	m_pObj = new memberFuncHeader();
 }
 
 callMemberFunc::~callMemberFunc()

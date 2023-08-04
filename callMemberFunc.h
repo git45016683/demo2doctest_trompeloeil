@@ -5,7 +5,7 @@ class memberFuncHeader;
 class callMemberFunc
 {
 public:
-	callMemberFunc(memberFuncHeader* p_pObj);
+	callMemberFunc();
 	~callMemberFunc();
 
 public:
