@@ -10,11 +10,14 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include "trompeloeil.hpp"
+#include "callMemberFunc.h"
 
 
-#define TRY_TROMPELOEIL 1
 using trompeloeil::eq;
 using trompeloeil::_;
+
+
+// ------------------ doctest --------------------
 
 int fact(int n) {
 	return (n <= 1) ? n : (fact(n - 1) * n);
@@ -27,9 +30,7 @@ TEST_CASE("demo2doctest") {
 }
 
 
-
-#if TRY_TROMPELOEIL
-
+// ------------------ doctest + trompeloeil mock free function --------------------
 
 class freeFuncMock {
 public:
@@ -83,6 +84,7 @@ TEST_CASE("demo2doctestBYmockWithPointer") {
 	// 方式2，魔数直接出参
 	//REQUIRE_CALL(freeMock, bOutputValueWithPointer(_)).SIDE_EFFECT(*_1 = 11).RETURN(true);
 	//REQUIRE_CALL(freeMock, vOutputValueWithPointer(_, _)).SIDE_EFFECT(*_1 = 3, *_2 = 6);
+
 	CHECK(funcCallAPIneedmockWithPointer() == (11 + 3));
 }
 
@@ -98,12 +100,44 @@ TEST_CASE("demo2doctestBYmockWithPointer") {
 	}
 //}
 
-//try mock iDownLoad with trompeloeil
-//int iDownLoad(){
-//	return -1;
-//}
 
-#endif // TRY_TROMPELOEIL
+
+// ------------------ doctest + trompeloeil mock class function --------------------
+
+
+class memberFuncMock {
+public:
+	MAKE_MOCK1(vOutputValueByPointer, void(char*));
+	MAKE_MOCK2(bOutputRet, bool(int, int));
+	MAKE_MOCK2(iConstParamFunc, void(const char*, const int));
+	MAKE_MOCK2(pcOutputValueByReference, void(const char*, int&));
+	MAKE_MOCK1(vOutputValueByPointer_vir, void(char*));
+	MAKE_MOCK2(bOutputRet_vir, bool(int, int));
+	MAKE_MOCK2(iConstParamFunc_vir, void(const char*, const int));
+	MAKE_MOCK2(pcOutputValueByReference_vir, void(const char*, int&));
+};
+memberFuncMock memberMock;
+
+callMemberFunc* g_pCallMemberFunc = new callMemberFunc((memberFuncHeader*) & memberMock);
+
+int funcCall_OutputValueByPointer(char* p_pcStr) {
+	int l_iRet = -1;
+	char l_acStr[256] = {0};
+	l_iRet = g_pCallMemberFunc->iTest_OutputValueByPointer(l_acStr);
+	memcpy(p_pcStr, l_acStr, 256);
+	return l_iRet;
+}
+
+TEST_CASE("demo2mockMemberFunc0") {
+	char* l_pStr = new char[256];
+	memcpy(l_pStr, "HELLOWORLD", strlen("HELLOWORLD"));
+	REQUIRE_CALL(memberMock, vOutputValueByPointer(_)).LR_SIDE_EFFECT(memcpy(_1, l_pStr, strlen(l_pStr)));
+
+	char l_acStr[256] = { 0 };
+	int l_iRet = funcCall_OutputValueByPointer(l_acStr);
+	CHECK(l_iRet == 0);
+	CHECK(memcmp(l_acStr, "HELLOWORLD", strlen("HELLOWORLD") == 0));
+}
 
 //int main()
 //{

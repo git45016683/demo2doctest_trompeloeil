@@ -18,9 +18,21 @@
     <ClCompile Include="demo2doctest.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="memberFuncHeader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="callMemberFunc.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="freeFuncHeader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="memberFuncHeader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="callMemberFunc.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -141,10 +141,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="callMemberFunc.cpp" />
     <ClCompile Include="demo2doctest.cpp" />
+    <ClCompile Include="memberFuncHeader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="callMemberFunc.h" />
     <ClInclude Include="freeFuncHeader.h" />
+    <ClInclude Include="memberFuncHeader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
